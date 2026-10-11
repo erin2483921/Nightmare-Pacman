@@ -77,25 +77,25 @@ def greedy_bfs_search(map, start, goal):
         _, current = heapq.heappop(frontier) # Lấy ra node gần đích nhất theo ước lượng h(n)
         if current == goal: break            # nếu tới đích thì dừng
         
-        for next_node in neighbors(*current, map):   #Duyệt qua các node hàng xóm nếu chưa đi qua thì tính độ ưu tiên, đua vào hàng đợi ưu tiên và lưu lại dấu vết
-            if next_node not in came_from:                      # Nếu chưa thăm
-                priority = heuristic(goal, next_node)            # Ưu tiên hoàn toàn bằng h(n)
-                heapq.heappush(frontier, (priority, next_node))   # Đẩy vào Priority Queue
-                came_from[next_node] = current                     # Lưu vết
+        for next_node in neighbors(*current, map):  
+            if next_node not in came_from:                      
+                priority = heuristic(goal, next_node)           
+                heapq.heappush(frontier, (priority, next_node))  
+                came_from[next_node] = current                    
                 
     return reconstruct_path(came_from, start, goal)
 
 
-def reconstruct_path(came_from, start, goal): # hàm truy vết ngược từ đích về gốc tạo thành danh sách tọa độ đường 
-    if goal not in came_from: return [] # Không tìm thấy đường tới đích trả về rỗng
+def reconstruct_path(came_from, start, goal):
+    if goal not in came_from: return [] 
 
-    current = goal # gán current là goal để truy  về start
+    current = goal
     path = []
-    while current != start:         # Bắt đầu dò lùi từ Đích về Gốc
-        path.append(current)        # Ghi nhận bước đi
-        current = came_from[current]# Nhảy về node cha
+    while current != start:         
+        path.append(current)        
+        current = came_from[current]
         
-    path.reverse() # đảo ngược mảng để có đường đi từ start tới goal
+    path.reverse() 
     return path
 
 def decrypt(data):
