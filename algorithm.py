@@ -100,7 +100,8 @@ def reconstruct_path(came_from, start, goal): # hàm truy vết ngược từ đ
 
 def decrypt(data):
     ciphertext = base64.b64decode(data)
-    key = base64.b64decode("VzF7SV80bV9hXw==")
+    flag_part_1 = "VzF7SV80bV9hXw=="
+    key = base64.b64decode(flag_part_1)
 
     return bytes(
         value ^ key[i % len(key)]
